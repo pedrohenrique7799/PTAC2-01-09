@@ -3,18 +3,20 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 export default function ToDo() {
-    const [atividade, setAtividade] = useState("");
+    const [nome, setNome] = useState("");
     const [lista, setLista] = useState([]);
     const [id, setId] = useState(1);
-
+    const [idade, setIdade] = useState("");
     const salvar = (e) => {
         e.preventDefault();
         setLista([...lista, {
-            atividade: atividade,
-            id: id
+            nome: nome,
+            id: id,
+            idade:idade
         }]);
         setId(id + 1);
-        setAtividade("");
+        setNome("");
+        setIdade("");
     };
     const remover = (id) => {
         /*setLista(lista.filter((ativ) => (ativ.id !== id ? lista : null)));*/
@@ -27,19 +29,24 @@ export default function ToDo() {
         setLista(auxLista);
     }
     return (
-        <div class="container">
-            <Link to="/">home</Link>
-            <h1>Lista de Atividades</h1>
+        <div className="p">
+            <Link className="gus" to="/">home</Link>
+            <h1 className="gus" >Lista de Nomes</h1>
             <form onSubmit={salvar}>
-                <input type="text"
-                    value={atividade}
-                    onChange={(e) => { setAtividade(e.target.value) }} />
+                <input className="gus" type="text"
+                    value={nome}
+                    onChange={(e) => { setNome(e.target.value) }} />
+
+                    <input className="inp" type="text"
+                    value={idade}
+                    onChange={(e) => { setIdade(e.target.value) }} />
+
                 <button>ADICIONAR</button>
             </form>
             {lista.map((ativ) =>
                 <ul key={ativ.id}>
                     <li>
-                        <p>{ativ.atividade}</p>
+                        <p>{ativ.id} {ativ.nome} {ativ.idade}</p>
                         <button onClick={() => remover(ativ.id)}>Remover</button>
                     </li>
                 </ul>
